@@ -1,0 +1,15 @@
+# 추후 컨피그 설정시 필요한 env파일
+# DB
+#DB_TYPE=sqlite # postgres | sqlite etc...
+DB_TYPE=postgres
+DB_HOST=localhost # comment it when db type is sqlite
+DB_PORT=5432 # comment when db type is sqlite
+DB_USERNAME=postgres #comment when db type is sqlite
+DB_PASSWORD=postgres #comment when db type is sqlite
+#DB_DATABASE=.tmp/data.db # sqlite: .tmp/data.db | postgres: database name
+DB_SYNC=true
+DB_LOG=true
+# JWT
+JWT_SECRET=secret
+JWT_EXPIRATION_TIME=30d # s | m | h | d
+# 해당 파일 .env로 변경 하여 빌드 
