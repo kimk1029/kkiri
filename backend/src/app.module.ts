@@ -3,8 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule,ConfigService } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CommonModule } from './common/common.module';
+import { CommonService } from './common/common.service';
+import { AuthModule } from './auth/auth.module';
+
 import * as Joi from 'joi';
 
 @Module({
@@ -49,8 +52,9 @@ import * as Joi from 'joi';
     }),
     AuthModule,
     UsersModule,
+    CommonModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CommonService],
 })
 export class AppModule {}
