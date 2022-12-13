@@ -10,6 +10,12 @@ async function bootstrap() {
         .setDescription('The KKIRI API description')
         .setVersion('1.0')
         .addTag('KKIRI')
+        .addBearerAuth({
+        type: 'http',
+        scheme: 'bearer',
+        name: 'JWT',
+        in: 'header',
+    }, 'access-token')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);

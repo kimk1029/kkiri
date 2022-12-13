@@ -7,7 +7,6 @@ import { UsersModule } from './users/users.module';
 import { CommonModule } from './common/common.module';
 import { CommonService } from './common/common.service';
 import { AuthModule } from './auth/auth.module';
-
 import * as Joi from 'joi';
 
 @Module({
