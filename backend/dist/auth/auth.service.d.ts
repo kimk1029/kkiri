@@ -1,14 +1,22 @@
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UsersService } from 'src/users/users.service';
+import { LoginAuthDto } from './dto/login-auth.dto';
+import { RegisterAuthDto } from './dto/register-auth.dto';
+import { IsSocial } from 'src/common/enums';
 export declare class AuthService {
+    private readonly usersService;
     private readonly jwtService;
-    constructor(jwtService: JwtService);
-    create(createAuthDto: CreateAuthDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateAuthDto: UpdateAuthDto): string;
-    remove(id: number): string;
-    checkMatchPassword(createUserDto: CreateUserDto): Promise<any>;
+    constructor(usersService: UsersService, jwtService: JwtService);
+    register(registerAuthDto: RegisterAuthDto): Promise<{
+        jwt: string;
+        user: import("../users/entities/user.entity").User;
+    }>;
+    validateUser(email: string, pass: string, isSocial: IsSocial): Promise<any>;
+    login(loginAuthDto: LoginAuthDto): Promise<{
+        jwt: string;
+        user: any;
+    }>;
+    checkMatchPassword(registerAuthDto: RegisterAuthDto): Promise<void>;
+    checkEmail(email: string): Promise<void>;
+    checkNickname(nickName: string): Promise<void>;
 }

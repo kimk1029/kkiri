@@ -1,44 +1,30 @@
-
-import { Body, ClassSerializerInterceptor, Controller, HttpException, HttpStatus, Post, UseGuards, UseInterceptors, Get, Patch, Param, Delete  } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { IsSocial } from 'src/common/enums';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { LoginAuthDto } from './dto/login-auth.dto';
+import { RegisterAuthDto } from './dto/register-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Auth } from './entities/auth.entity';
 
-@UseInterceptors(ClassSerializerInterceptor)
+@ApiTags('인증')
 @Controller('auth')
-@ApiTags('인증API')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
+  @ApiQuery({ name: 'isSocial', enum: IsSocial })
+  @Post('/register')
+  register(@Query() @Body() registerAuthDto:RegisterAuthDto) {
+    return this.authService.register(registerAuthDto);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @Post('/login')
+  @ApiOperation({ summary: '로그인 API', description: '로그인을 한다.' })
+  @ApiCreatedResponse({ description: '로그인을 한다.', type: Auth })
+  login(@Body() loginAuthDto: LoginAuthDto) {
+    return this.authService.login(loginAuthDto);
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
-
-  // 이메일 중복 확인 
-  // 비밀번호 검증
-  // 로그인 
 
 }

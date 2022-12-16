@@ -8,12 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
 const auth_service_1 = require("./auth.service");
+const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
-const jwt_strategy_1 = require("./jwt.strategy");
-const passport_1 = require("@nestjs/passport");
+const config_1 = require("@nestjs/config");
 const users_module_1 = require("../users/users.module");
+const passport_1 = require("@nestjs/passport");
+const jwt_strategy_1 = require("./jwt.strategy");
+const users_service_1 = require("../users/users.service");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -32,7 +34,8 @@ AuthModule = __decorate([
             users_module_1.UsersModule,
             passport_1.PassportModule,
         ],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
+        controllers: [auth_controller_1.AuthController],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, users_service_1.UsersService]
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;

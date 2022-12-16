@@ -21,7 +21,14 @@ let UsersService = class UsersService {
         user.password = await (0, bcrypt_1.hash)(createUserDto.password, 10);
         user.nickName = createUserDto.nickName;
         user.isSocial = createUserDto.isSocial;
-        user.save();
+        await user.save();
+        return user;
+    }
+    async findByEmail(email) {
+        return await user_entity_1.User.findOne({ where: { email } });
+    }
+    async findByNickname(nickName) {
+        return await user_entity_1.User.findOne({ where: { nickName } });
     }
     findAll() {
         return `This action returns all users`;

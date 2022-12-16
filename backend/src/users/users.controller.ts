@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags, ApiQuery, ApiProperty, ApiBody } from '@nestjs/swagger';
 import { IsSocial } from 'src/common/enums';
 
+@ApiTags('유저')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

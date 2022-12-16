@@ -7,19 +7,33 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    //@Inject(forwardRef( () => AuthService)) // 순환참조 해결 
-    // private authService: AuthService,
   ) {}
-  async create(createUserDto: CreateUserDto) {
-    // 정합성 확인
-    // this.authService.checkMatchPassword(createUserDto);
+
+  /**
+   * 회원등록
+  */
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.email = createUserDto.email;
     user.password = await hash(createUserDto.password, 10);
     user.nickName = createUserDto.nickName;
     user.isSocial = createUserDto.isSocial;
-    user.save();
-    // return 'This action adds a new user';
+    await user.save();
+    return user;
+  }
+
+  /**
+   * 이메일 찾기
+   */
+  async findByEmail(email: string) {
+    return await User.findOne({ where: { email } });
+  }
+
+  /**
+   * 닉네임 찾기
+   */
+   async findByNickname(nickName: string) {
+    return await User.findOne({ where: { nickName } });
   }
 
   findAll() {
@@ -37,5 +51,6 @@ export class UsersService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   } 
+
 
 }

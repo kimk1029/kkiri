@@ -23,15 +23,6 @@ export class CreateUserDto {
     password: string;
 
     @ApiProperty({
-        required: false,
-        example: '@@@q123',
-        description: '비밀번호확인',
-    }) 
-    @IsString()
-    @IsNotEmpty()
-    passwordConfirm: string;
-
-    @ApiProperty({
         required: true,
         example: '끼리끼리',
         description: '닉네임',

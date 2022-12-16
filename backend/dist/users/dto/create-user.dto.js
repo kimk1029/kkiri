@@ -37,16 +37,6 @@ __decorate([
 ], CreateUserDto.prototype, "password", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        required: false,
-        example: '@@@q123',
-        description: '비밀번호확인',
-    }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "passwordConfirm", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
         required: true,
         example: '끼리끼리',
         description: '닉네임',
