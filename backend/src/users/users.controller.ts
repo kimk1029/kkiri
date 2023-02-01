@@ -12,7 +12,7 @@ export class UsersController {
 
   @ApiQuery({ name: 'isSocial', enum: IsSocial })
   @Post()
-  create(@Query()@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     console.log(createUserDto);
     return this.usersService.create(createUserDto);
   }
