@@ -26,11 +26,11 @@ export class AuthService {
    */
    async register(registerAuthDto: RegisterAuthDto){
     // 비밀번호 일치 확인 
-    this.checkMatchPassword(registerAuthDto);
+    await this.checkMatchPassword(registerAuthDto);
     // 기등록 회원 가입 확인(이메일 확인) 
-    this.checkEmail(registerAuthDto.email);
+    await this.checkEmail(registerAuthDto.email);
     // 동일 닉네임 확인 
-    this.checkNickname(registerAuthDto.nickName);
+    await this.checkNickname(registerAuthDto.nickName);
     
     const createUserDto: CreateUserDto = {
       email: registerAuthDto.email,
