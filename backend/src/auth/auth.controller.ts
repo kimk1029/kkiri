@@ -14,7 +14,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
-  @ApiQuery({ name: 'isSocial', enum: IsSocial })
   @Post('/register')
   register(@Body() registerAuthDto:RegisterAuthDto) {
     return this.authService.register(registerAuthDto);
