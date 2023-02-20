@@ -44,3 +44,7 @@ export enum IsColorTypes {
     ORANGE = '주황',
     YELLOW = '노랑 ',
 }
+export enum IsYn {
+    YES = 'Y',
+    NO = 'N'
+}

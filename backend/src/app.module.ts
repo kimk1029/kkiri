@@ -7,6 +7,10 @@ import { UsersModule } from './users/users.module';
 import { CommonModule } from './common/common.module';
 import { CommonService } from './common/common.service';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
+import { CategoryModule } from './category/category.module';
+import { ReplyModule } from './reply/reply.module';
+import { BoardModule } from './board/board.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -52,6 +56,11 @@ import * as Joi from 'joi';
     UsersModule,
     CommonModule,
     AuthModule,
+    EmailModule,
+    BoardModule,
+    CategoryModule,
+    ReplyModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService, CommonService],

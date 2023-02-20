@@ -60,5 +60,5 @@ export class User extends EntityBase {
     }) 
     @Column({ type: 'enum', name: 'isColorTypes', enum: IsColorTypes, nullable: true }  )
     isColorTypes: IsColorTypes;
-
+    
 }
