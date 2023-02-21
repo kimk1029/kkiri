@@ -1,8 +1,10 @@
 import { EntityBase } from 'src/common/entityBase'
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, IsNull } from 'typeorm';
+import { Entity, Column, IsNull, OneToMany, JoinTable } from 'typeorm';
 import {IsBloodTypes, IsMbti, IsSocial, IsColorTypes} from '../../common/enums';
+import { Board } from 'src/board/entities/board.entity';
+import { Reply } from 'src/reply/entities/reply.entity';
 @Entity()
 export class User extends EntityBase {
     
@@ -60,5 +62,12 @@ export class User extends EntityBase {
     }) 
     @Column({ type: 'enum', name: 'isColorTypes', enum: IsColorTypes, nullable: true }  )
     isColorTypes: IsColorTypes;
+    
+    @OneToMany(() => Board, (board) => board.user)
+    @JoinTable({ name: 'id' })
+    board: Board[]
 
+    @OneToMany(() => Reply, (reply) => reply.user)
+    @JoinTable({ name: 'id' })
+    reply: Reply[]
 }
