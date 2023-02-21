@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Board } from "src/board/entities/board.entity";
 import { EntityBase } from "src/common/entityBase";
 import { IsYn } from "src/common/enums";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Category extends EntityBase {
@@ -29,6 +29,7 @@ export class Category extends EntityBase {
     showYn: IsYn;
 
     @OneToMany(() => Board, (board) => board.category)
+    @JoinTable({ name: 'id' })
     board: Board[]
 
 }

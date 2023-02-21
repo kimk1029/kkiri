@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ReplyService } from './reply.service';
 import { CreateReplyDto } from './dto/create-reply.dto';
 import { UpdateReplyDto } from './dto/update-reply.dto';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { Paginate, PaginateQuery } from 'nestjs-paginate';
 
+@ApiTags('댓글')
 @Controller('reply')
 export class ReplyController {
   constructor(private readonly replyService: ReplyService) {}
@@ -12,14 +15,27 @@ export class ReplyController {
     return this.replyService.create(createReplyDto);
   }
 
-  @Get()
-  findAll() {
-    return this.replyService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.replyService.findOne(+id);
+  @ApiQuery({
+    name: 'page',
+    required: true,
+    example: 1,
+    description: '불러올 페이지',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: true,
+    example: 2,
+    description: '한번에 가져올 개수',
+  })
+  @ApiQuery({
+    name: 'filter.board.id',
+    required: true,
+    example: 1,
+    description: '게시판ID 필수',
+  })
+  @Get('/replyList')
+  replyList(@Paginate() query: PaginateQuery) {
+    return this.replyService.replyList(query);
   }
 
   @Patch(':id')
