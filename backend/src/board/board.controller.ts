@@ -57,7 +57,7 @@ export class BoardController {
     return this.boardService.findBoardList(query)
   }
  
-  @Get('/findContentOne:id')
+  @Get('/findContentOne/:id')
   findContentOne(@Param('id') id: string) {
     return this.boardService.findContentOne(+id);
   }
