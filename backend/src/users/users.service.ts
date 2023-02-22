@@ -40,8 +40,12 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOneUserInfo(id: number) {
+    const queryBuilder = User.createQueryBuilder('user')
+    .select(['user.id','user.email', 'user.nickName','user.isBloodTypes','user.isMbti','user.isSocial','user.isColorTypes'])
+    .where({id})
+    .getOne();
+    return queryBuilder;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

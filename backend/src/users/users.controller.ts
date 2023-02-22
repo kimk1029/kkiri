@@ -21,10 +21,11 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  
+  @ApiOperation({ summary: '유저정보API', description: '유저를 정보를 조회한다.' })
+  @Get('/findOneUserInfo/:id')
+  findOneUserInfo(@Param('id') id: string) {
+    return this.usersService.findOneUserInfo(+id);
   }
 
   @Patch(':id')
