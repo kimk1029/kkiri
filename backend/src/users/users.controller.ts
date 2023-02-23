@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags, ApiQuery, ApiProperty, ApiBody } from '@nestjs/swagger';
 import { IsSocial } from 'src/common/enums';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { request } from 'express';
 
 @ApiTags('유저')
 @Controller('users')
@@ -22,10 +24,14 @@ export class UsersController {
     return this.usersService.findAll();
   }
   
-  @ApiOperation({ summary: '유저정보API', description: '유저를 정보를 조회한다.' })
-  @Get('/findOneUserInfo/:id')
-  findOneUserInfo(@Param('id') id: string) {
-    return this.usersService.findOneUserInfo(+id);
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token') 
+  @ApiOperation({ summary: '유저정보API', description: '유저를 정보를 조회한다. 로그인 후 응답 받은 jwt키를 swagger 우측 상단  authorize 버튼을 클릭 해서 value에 기입해주면 로그인 상태이다.' })
+  // @Get('/findOneUserInfo/:id')
+  // findOneUserInfo(@Param('id') id: string, @Request() request) {
+  @Get('/findOneUserInfo')
+  findOneUserInfo(@Request() request) {
+    return this.usersService.findOneUserInfo(+request.user.id);
   }
 
   @Patch(':id')
