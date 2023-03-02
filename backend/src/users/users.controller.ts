@@ -34,9 +34,11 @@ export class UsersController {
     return this.usersService.findOneUserInfo(+request.user.id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch('/patchUserInfo')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token') 
+  update(@Request() request, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(+request.user.id, updateUserDto);
   }
 
   @Delete(':id')

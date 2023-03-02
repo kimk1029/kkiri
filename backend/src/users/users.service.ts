@@ -48,8 +48,13 @@ export class UsersService {
     return queryBuilder;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await User.findOne({ where: { id } });
+    user.isMbti = updateUserDto.isMbti;
+    user.isBloodTypes = updateUserDto.isBloodTypes;
+    user.isColorTypes = updateUserDto.isColorTypes;
+    await user.save();
+    return user;
   }
 
   remove(id: number) {
