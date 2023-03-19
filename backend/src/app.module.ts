@@ -12,6 +12,7 @@ import { CategoryModule } from './category/category.module';
 import { ReplyModule } from './reply/reply.module';
 import { BoardModule } from './board/board.module';
 import * as Joi from 'joi';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import * as Joi from 'joi';
     BoardModule,
     CategoryModule,
     ReplyModule,
+    SwaggerModule,
     
   ],
   controllers: [AppController],
